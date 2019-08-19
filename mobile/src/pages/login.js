@@ -17,9 +17,9 @@ export default function Login({ navigation }) {
     const [user, setUser] = useState('');
 
     useEffect(() => {
-        AsyncStorage.getItem('user').then(user => {
-            if (user) {
-                navigation.navigate('Main', { _user: user });
+        AsyncStorage.getItem('user').then(userId => {
+            if (userId) {
+                navigation.navigate('Main', { user: userId });
             }
         });
     }, [navigation]);
@@ -30,7 +30,7 @@ export default function Login({ navigation }) {
         });
         const { _id } = response.data;
         await AsyncStorage.setItem('user', _id);
-        navigation.navigate('Main', { _id });
+        navigation.navigate('Main', { user: _id });
     }
 
     return (
