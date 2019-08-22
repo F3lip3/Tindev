@@ -17,7 +17,11 @@ module.exports = {
     },
     async store(req, res) {
         const { username: user } = req.body;
-        const existingUser = await dev.findOne({ user });
+        const existingUser = await dev.findOne({
+            user: {
+                $regex: new RegExp(user, 'i')
+            }
+        });
         if (existingUser) {
             return res.json(existingUser);
         }
